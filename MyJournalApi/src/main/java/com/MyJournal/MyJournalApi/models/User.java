@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Document(collection = "users")
-@Data
+@Data   // Generates getters, setters, toString, equals, and hashCode methods
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
