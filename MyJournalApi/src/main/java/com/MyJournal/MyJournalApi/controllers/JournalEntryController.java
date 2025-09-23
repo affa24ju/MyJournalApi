@@ -1,18 +1,23 @@
 package com.MyJournal.MyJournalApi.controllers;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.MyJournal.MyJournalApi.dtos.JournalEntryRequest;
+import com.MyJournal.MyJournalApi.dtos.JournalStatsResponse;
 import com.MyJournal.MyJournalApi.models.JournalEntry;
 import com.MyJournal.MyJournalApi.models.User;
 import com.MyJournal.MyJournalApi.services.JournalEntryService;
-
+import com.MyJournal.MyJournalApi.services.JournalStatsService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -21,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class JournalEntryController {
 
     private final JournalEntryService journalEntryService;
+    private final JournalStatsService journalStatsService;
 
     @PostMapping("/createJournalEntry")
     public JournalEntry createJournalEntry(@RequestBody JournalEntryRequest request) {
@@ -34,6 +40,24 @@ public class JournalEntryController {
         User dummyUser = new User();
         dummyUser.setId("dummyUser123"); // Replace with actual user ID retrieval logic
         return journalEntryService.getEntries(dummyUser);
+    }
+
+    @GetMapping("/getStats")
+    public JournalStatsResponse getStats(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        User dummyUser = new User();
+        dummyUser.setId("dummyUser123"); // Replace with actual user ID retrieval logic
+
+        // Konvertera LocalDate till LocalDateTime för att inkludera hela dagen
+        LocalDateTime startDateTime = startDate.atStartOfDay(); // 00:00:00
+        LocalDateTime endDateTime = endDate.atTime(23, 59, 59); // 23:59:59 för att inkludera hela dagen
+
+        List<JournalEntry> entries = journalEntryService.getJournalEntriesByDateRange(dummyUser, startDateTime,
+                endDateTime);
+
+        return journalStatsService.getStats(entries);
+
     }
 
 }
