@@ -1,5 +1,6 @@
 package com.MyJournal.MyJournalApi.controllers;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -43,11 +44,17 @@ public class JournalEntryController {
 
     @GetMapping("/getStats")
     public JournalStatsResponse getStats(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         User dummyUser = new User();
         dummyUser.setId("dummyUser123"); // Replace with actual user ID retrieval logic
-        List<JournalEntry> entries = journalEntryService.getJournalEntriesByDateRange(dummyUser, startDate, endDate);
+
+        // Konvertera LocalDate till LocalDateTime för att inkludera hela dagen
+        LocalDateTime startDateTime = startDate.atStartOfDay(); // 00:00:00
+        LocalDateTime endDateTime = endDate.atTime(23, 59, 59); // 23:59:59 för att inkludera hela dagen
+
+        List<JournalEntry> entries = journalEntryService.getJournalEntriesByDateRange(dummyUser, startDateTime,
+                endDateTime);
 
         return journalStatsService.getStats(entries);
 
