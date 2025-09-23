@@ -38,7 +38,7 @@ public class JournalEntryService {
     }
 
     // Metod för att visa statistik för en tidperiod
-    public List<JournalEntry> getJournalEntriesByDateReange(User user, LocalDateTime startDate, LocalDateTime endDate) {
+    public List<JournalEntry> getJournalEntriesByDateRange(User user, LocalDateTime startDate, LocalDateTime endDate) {
         return journalEntryRepository.findByUserIdAndCreatedAtBetween(user.getId(), startDate, endDate);
     }
 
