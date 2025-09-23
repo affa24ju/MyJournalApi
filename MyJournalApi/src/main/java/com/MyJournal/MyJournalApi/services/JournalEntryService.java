@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.MyJournal.MyJournalApi.dtos.JournalEntryRequest;
 import com.MyJournal.MyJournalApi.models.JournalEntry;
 import com.MyJournal.MyJournalApi.models.User;
-import com.MyJournal.MyJournalApi.models.JournalEntry;
 import com.MyJournal.MyJournalApi.repositories.JournalEntryRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -34,8 +33,8 @@ public class JournalEntryService {
     }
 
     // Metod för att hämta alla journalposter för en användare
-    public List<JournalEntry> getAllJournalEntriesForUser(String userId) {
-        return journalEntryRepository.findAll(); // Placeholder return
+    public List<JournalEntry> getEntries(User user) {
+        return journalEntryRepository.findByUserId(user.getId());
     }
 
     // Metod för att visa statistik för en tidperiod
