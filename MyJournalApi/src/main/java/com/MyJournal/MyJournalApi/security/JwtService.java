@@ -17,6 +17,7 @@ public class JwtService {
 
     private final Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
+    // Metod för att generera en JWT-token
     public String generateToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
@@ -25,5 +26,17 @@ public class JwtService {
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
+
+    // Metod för att extrahera användarnamn från token
+    public String extractUsername(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
+
+    // Metod för att validera token
 
 }
