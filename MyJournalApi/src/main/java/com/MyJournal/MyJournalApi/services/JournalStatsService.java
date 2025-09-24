@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class JournalStatsService {
 
-    private final JournalEntryService journalEntryService;
+    // private final JournalEntryService journalEntryService;
 
     // Metod för att hämta statistik
     public JournalStatsResponse getStats(List<JournalEntry> entries) {
