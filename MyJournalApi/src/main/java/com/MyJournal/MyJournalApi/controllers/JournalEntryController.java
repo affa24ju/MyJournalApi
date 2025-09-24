@@ -42,9 +42,11 @@ public class JournalEntryController {
 
     @GetMapping("/getEntries")
     public List<JournalEntry> getEntries() {
-        User dummyUser = new User();
-        dummyUser.setId("dummyUser123"); // Replace with actual user ID retrieval logic
-        return journalEntryService.getEntries(dummyUser);
+        // User dummyUser = new User();
+        // dummyUser.setId("dummyUser123"); // Replace with actual user ID retrieval
+        // logic
+        User currentUser = userService.getCurrentUser();
+        return journalEntryService.getEntries(currentUser);
     }
 
     @GetMapping("/getStats")
