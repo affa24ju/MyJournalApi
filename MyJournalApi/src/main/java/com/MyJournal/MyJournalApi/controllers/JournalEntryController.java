@@ -53,14 +53,16 @@ public class JournalEntryController {
     public JournalStatsResponse getStats(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        User dummyUser = new User();
-        dummyUser.setId("dummyUser123"); // Replace with actual user ID retrieval logic
+        // User dummyUser = new User();
+        // dummyUser.setId("dummyUser123"); // Replace with actual user ID retrieval
+        // logic
+        User currentUser = userService.getCurrentUser();
 
         // Konvertera LocalDate till LocalDateTime för att inkludera hela dagen
         LocalDateTime startDateTime = startDate.atStartOfDay(); // 00:00:00
         LocalDateTime endDateTime = endDate.atTime(23, 59, 59); // 23:59:59 för att inkludera hela dagen
 
-        List<JournalEntry> entries = journalEntryService.getJournalEntriesByDateRange(dummyUser, startDateTime,
+        List<JournalEntry> entries = journalEntryService.getJournalEntriesByDateRange(currentUser, startDateTime,
                 endDateTime);
 
         return journalStatsService.getStats(entries);
