@@ -69,15 +69,19 @@ public class JournalEntryController {
 
     @GetMapping("/today")
     public List<JournalEntry> getTodayEntries() {
-        User dummyUser = new User();
-        dummyUser.setId("dummyUser123"); // Replace with actual user ID retrieval logic
+        // User dummyUser = new User();
+        // dummyUser.setId("dummyUser123"); // Replace with actual user ID retrieval
+        // logic
+        User currentUser = userService.getCurrentUser();
 
         // Tar reda på dagens datum och skapar start & end tid för dagen
         LocalDate today = LocalDate.now();
         LocalDateTime startOfDay = today.atStartOfDay();
         LocalDateTime endOfDay = today.atTime(23, 59, 59);
 
-        return journalEntryService.getJournalEntriesByDateRange(dummyUser, startOfDay, endOfDay);
+        // return journalEntryService.getJournalEntriesByDateRange(dummyUser,
+        // startOfDay, endOfDay);
+        return journalEntryService.getJournalEntriesByDateRange(currentUser, startOfDay, endOfDay);
     }
 
 }
