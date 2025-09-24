@@ -24,6 +24,11 @@ public class User implements UserDetails {
     private String username;
     private String password;
 
+    @Override
+    public String getUsername() {
+        return this.username;
+    }
+
     // Implement UserDetails methods
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
