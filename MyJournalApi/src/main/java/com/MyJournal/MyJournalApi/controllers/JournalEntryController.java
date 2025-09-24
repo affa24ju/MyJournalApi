@@ -18,6 +18,8 @@ import com.MyJournal.MyJournalApi.models.JournalEntry;
 import com.MyJournal.MyJournalApi.models.User;
 import com.MyJournal.MyJournalApi.services.JournalEntryService;
 import com.MyJournal.MyJournalApi.services.JournalStatsService;
+import com.MyJournal.MyJournalApi.services.UserService;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -27,12 +29,15 @@ public class JournalEntryController {
 
     private final JournalEntryService journalEntryService;
     private final JournalStatsService journalStatsService;
+    private final UserService userService;
 
     @PostMapping("/createJournalEntry")
     public JournalEntry createJournalEntry(@RequestBody JournalEntryRequest request) {
-        User dummyUser = new User();
-        dummyUser.setId("dummyUser123"); // Replace with actual user ID retrieval logic
-        return journalEntryService.createJournalEntry(dummyUser, request);
+        // User dummyUser = new User();
+        // dummyUser.setId("dummyUser123"); // Replace with actual user ID retrieval
+        // logic
+        User currentUser = userService.getCurrentUser();
+        return journalEntryService.createJournalEntry(currentUser, request);
     }
 
     @GetMapping("/getEntries")
