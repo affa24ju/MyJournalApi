@@ -13,7 +13,7 @@ import io.jsonwebtoken.security.Keys;
 public class JwtService {
 
     private static final String SECRET_KEY = "2de812086b19ffb68ce7757586e69c26c7da886e2ed78bc52bd721b841638b9e";
-    private static final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 timme
+    private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 24; // 24 timmar
 
     private final Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 

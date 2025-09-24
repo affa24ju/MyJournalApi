@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.MyJournal.MyJournalApi.dtos.AuthRequest;
+import com.MyJournal.MyJournalApi.dtos.AuthResponse;
 import com.MyJournal.MyJournalApi.services.AuthenticationService;
 
 import lombok.RequiredArgsConstructor;
@@ -18,13 +19,12 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public String register(@RequestBody AuthRequest request) {
-        return authenticationService.register(request.getUsername(), request.getPassword());
+    public AuthResponse register(@RequestBody AuthRequest request) {
+        return authenticationService.register(request);
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody AuthRequest request) {
-        return authenticationService.authenticate(request.getUsername(), request.getPassword());
+    public AuthResponse login(@RequestBody AuthRequest request) {
+        return authenticationService.authenticate(request);
     }
-
 }
