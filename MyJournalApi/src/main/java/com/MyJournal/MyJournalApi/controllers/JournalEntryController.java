@@ -18,6 +18,8 @@ import com.MyJournal.MyJournalApi.models.JournalEntry;
 import com.MyJournal.MyJournalApi.models.User;
 import com.MyJournal.MyJournalApi.services.JournalEntryService;
 import com.MyJournal.MyJournalApi.services.JournalStatsService;
+import com.MyJournal.MyJournalApi.services.UserService;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -27,33 +29,40 @@ public class JournalEntryController {
 
     private final JournalEntryService journalEntryService;
     private final JournalStatsService journalStatsService;
+    private final UserService userService;
 
     @PostMapping("/createJournalEntry")
     public JournalEntry createJournalEntry(@RequestBody JournalEntryRequest request) {
-        User dummyUser = new User();
-        dummyUser.setId("dummyUser123"); // Replace with actual user ID retrieval logic
-        return journalEntryService.createJournalEntry(dummyUser, request);
+        // User dummyUser = new User();
+        // dummyUser.setId("dummyUser123"); // Replace with actual user ID retrieval
+        // logic
+        User currentUser = userService.getCurrentUser();
+        return journalEntryService.createJournalEntry(currentUser, request);
     }
 
     @GetMapping("/getEntries")
     public List<JournalEntry> getEntries() {
-        User dummyUser = new User();
-        dummyUser.setId("dummyUser123"); // Replace with actual user ID retrieval logic
-        return journalEntryService.getEntries(dummyUser);
+        // User dummyUser = new User();
+        // dummyUser.setId("dummyUser123"); // Replace with actual user ID retrieval
+        // logic
+        User currentUser = userService.getCurrentUser();
+        return journalEntryService.getEntries(currentUser);
     }
 
     @GetMapping("/getStats")
     public JournalStatsResponse getStats(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        User dummyUser = new User();
-        dummyUser.setId("dummyUser123"); // Replace with actual user ID retrieval logic
+        // User dummyUser = new User();
+        // dummyUser.setId("dummyUser123"); // Replace with actual user ID retrieval
+        // logic
+        User currentUser = userService.getCurrentUser();
 
         // Konvertera LocalDate till LocalDateTime för att inkludera hela dagen
         LocalDateTime startDateTime = startDate.atStartOfDay(); // 00:00:00
         LocalDateTime endDateTime = endDate.atTime(23, 59, 59); // 23:59:59 för att inkludera hela dagen
 
-        List<JournalEntry> entries = journalEntryService.getJournalEntriesByDateRange(dummyUser, startDateTime,
+        List<JournalEntry> entries = journalEntryService.getJournalEntriesByDateRange(currentUser, startDateTime,
                 endDateTime);
 
         return journalStatsService.getStats(entries);
@@ -62,15 +71,19 @@ public class JournalEntryController {
 
     @GetMapping("/today")
     public List<JournalEntry> getTodayEntries() {
-        User dummyUser = new User();
-        dummyUser.setId("dummyUser123"); // Replace with actual user ID retrieval logic
+        // User dummyUser = new User();
+        // dummyUser.setId("dummyUser123"); // Replace with actual user ID retrieval
+        // logic
+        User currentUser = userService.getCurrentUser();
 
         // Tar reda på dagens datum och skapar start & end tid för dagen
         LocalDate today = LocalDate.now();
         LocalDateTime startOfDay = today.atStartOfDay();
         LocalDateTime endOfDay = today.atTime(23, 59, 59);
 
-        return journalEntryService.getJournalEntriesByDateRange(dummyUser, startOfDay, endOfDay);
+        // return journalEntryService.getJournalEntriesByDateRange(dummyUser,
+        // startOfDay, endOfDay);
+        return journalEntryService.getJournalEntriesByDateRange(currentUser, startOfDay, endOfDay);
     }
 
 }
