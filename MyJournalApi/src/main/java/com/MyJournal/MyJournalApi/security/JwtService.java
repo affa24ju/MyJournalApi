@@ -38,5 +38,20 @@ public class JwtService {
     }
 
     // Metod för att validera token
+    public boolean isTokenValid(String token, String username) {
+        final String extractedUsername = extractUsername(token);
+        return (extractedUsername.equals(username) && !isTokenExpired(token));
+    }
+
+    // Hjälpmetod för att kontrollera om token har gått ut
+    private boolean isTokenExpired(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getExpiration()
+                .before(new Date());
+    }
 
 }
