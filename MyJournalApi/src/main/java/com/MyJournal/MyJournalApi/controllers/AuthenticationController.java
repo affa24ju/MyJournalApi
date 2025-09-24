@@ -22,4 +22,9 @@ public class AuthenticationController {
         return authenticationService.register(request.getUsername(), request.getPassword());
     }
 
+    @PostMapping("/login")
+    public String login(@RequestBody AuthRequest request) {
+        return authenticationService.authenticate(request.getUsername(), request.getPassword());
+    }
+
 }
