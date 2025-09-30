@@ -33,7 +33,7 @@ public class JournalEntryService {
     }
 
     // Metod för att hämta alla journalposter för en användare
-    public List<JournalEntry> getEntries(User user) {
+    public List<JournalEntry> getAllEntries(User user) {
         return journalEntryRepository.findByUserId(user.getId());
     }
 
