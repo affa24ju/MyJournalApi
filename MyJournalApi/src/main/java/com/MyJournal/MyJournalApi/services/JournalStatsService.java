@@ -24,9 +24,15 @@ public class JournalStatsService {
         Map<Feeling, Long> feelingCounts = entries.stream()
                 .collect(Collectors.groupingBy(JournalEntry::getFeeling, Collectors.counting()));
 
+        // Räkna ut procent för varje känsla
+        Map<Feeling, Double> feelingPercentages = feelingCounts.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey,
+                        e -> (totalEntries == 0) ? 0.0 : (e.getValue() * 100.0 / totalEntries)));
+
         return JournalStatsResponse.builder()
                 .totalEntries(totalEntries)
                 .feelingCounts(feelingCounts)
+                .feelingPercentages(feelingPercentages)
                 .build();
 
     }

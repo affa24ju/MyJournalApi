@@ -17,4 +17,5 @@ public class JournalStatsResponse {
 
     private long totalEntries;
     private Map<Feeling, Long> feelingCounts;
+    private Map<Feeling, Double> feelingPercentages;
 }
