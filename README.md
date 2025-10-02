@@ -5,6 +5,7 @@ This is the backend API for MyJournalFrontend application.
 **Authentication**
 - User registration and login system
 - Secure authentication flow with JWT token
+- Encrypted password
 
 **Daily Journaling**
 - Record daily mental condition with text descriptions
@@ -78,6 +79,17 @@ The application has the following endpoints:
 
 **GET:** localhost:8080/api/myJournal/getStats?startDate&endDate
 
+## Ex. JSON
+**Create user/ Login**
+
+`json { "username": "olle", "password": "olle12345" } `
+
+**Create journal entry**
+
+`json { 
+  "note" : "Felling proud",
+   "feeling": "PROUD"
+} `
 
 
 
