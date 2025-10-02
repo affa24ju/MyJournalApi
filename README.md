@@ -91,6 +91,7 @@ The application has the following endpoints:
    "feeling": "PROUD"
 } `
 
+**Note:** For Better experience use with frontend application! There you could find emojies and grahical representation of statistics.  
 
 
 
