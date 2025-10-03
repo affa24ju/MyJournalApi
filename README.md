@@ -93,5 +93,10 @@ The application has the following endpoints:
 
 **Note:** For Better experience use with frontend application! There you could find emojies and grahical representation of statistics.  
 
-
+## Future Development:
+- Endpoint to delete journal entry
+- Endpoint to update (pathc) journal entry
+- Endpoint to update username/ password
+- Add Admin role
+- Admin can delete an user account
 
