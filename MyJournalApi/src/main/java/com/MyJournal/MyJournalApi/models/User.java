@@ -32,7 +32,8 @@ public class User implements UserDetails {
     // Implement UserDetails methods
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Returnerar en tom lista eftersom vi inte har några roller eller behörigheter
+        // Returnerar en tom lista eftersom jag inte har några roller eller behörigheter
+        // här
         return Collections.emptyList();
     }
 
