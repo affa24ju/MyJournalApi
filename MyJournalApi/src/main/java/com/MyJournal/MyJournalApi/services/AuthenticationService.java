@@ -53,6 +53,7 @@ public class AuthenticationService {
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
         // Kontrollera om användaren finns i databasen
+        // Om inte returnerar fel meddelande "Invalid..."
         userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid username or password"));
 
@@ -60,8 +61,9 @@ public class AuthenticationService {
         String token = jwtService.generateToken(request.getUsername());
         return new AuthResponse("User authenticated successfully", token);
     }
-   
-    // Metod för att hämta alla användare från databasen (bara för att se vilka användare som finns)
+
+    // Metod för att hämta alla användare från databasen (bara för att se vilka
+    // användare som finns)
     public List<UserResponse> getAllUsers() {
         return userRepository.findAll().stream()
                 .map(user -> new UserResponse(user.getId(), user.getUsername()))
